@@ -1,0 +1,599 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "cecapi",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://mtadcec-mtabscoci.cec.ocp.oraclecloud.com/documents/api/1.2",
+            "description": "CEC REST API",
+            "x-vb": {
+                "authentication": {
+                    "authenticated": {
+                        "type": "basic",
+                        "credentials": "vb_5e086a83-656c-4308-a3db-68178de24b75"
+                    }
+                },
+                "forceProxy": "cors"
+            }
+        }
+    ],
+    "paths": {
+        "/folders/{folderId}": {
+            "post": {
+                "operationId": "createNewFolder",
+                "parameters": [
+                    {
+                        "name": "folderId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PostFoldersFolderIdRequest"
+                            },
+                            "examples": {
+                                "vb": {
+                                    "externalValue": "./examples/cecapi/request_application_json_vb.json"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "Response for default",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostFoldersFolderIdResponse"
+                                },
+                                "examples": {
+                                    "vb": {
+                                        "summary": "Example stored by VB User",
+                                        "externalValue": "./examples/cecapi/response_default_application_json_vb.json"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-vb": {
+                    "actionHint": "getMany"
+                }
+            }
+        },
+        "/folders/{folderId}/items": {
+            "get": {
+                "summary": "getCECFolderContents",
+                "description": "getCECFolderContents",
+                "operationId": "getCECFolderContents",
+                "parameters": [
+                    {
+                        "name": "folderId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Response for default",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetFoldersFolderIdItems"
+                                },
+                                "examples": {
+                                    "vb": {
+                                        "summary": "Example stored by VB User",
+                                        "externalValue": "./examples/getCECFolderContents/response_default_application_json_vb.json"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-vb": {
+                    "actionHint": "getMany"
+                }
+            }
+        },
+        "/files/data": {
+            "post": {
+                "operationId": "createNewFile",
+                "responses": {},
+                "x-vb": {
+                    "actionHint": "create"
+                }
+            }
+        },
+        "/files/{fileId}/data": {
+            "get": {
+                "summary": "getFileFromCEC",
+                "description": "getFileFromCEC",
+                "operationId": "getFileFromCEC",
+                "parameters": [
+                    {
+                        "name": "fileId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {},
+                "x-vb": {
+                    "actionHint": "getMany"
+                }
+            }
+        },
+        "/files/{fileId}": {
+            "get": {
+                "summary": "getFileInfo",
+                "description": "getFileInfo",
+                "operationId": "getFileInfo",
+                "parameters": [
+                    {
+                        "name": "fileId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Response for default",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetFilesFileId"
+                                },
+                                "examples": {
+                                    "vb": {
+                                        "summary": "Example stored by VB User",
+                                        "externalValue": "./examples/ggetFileInfo/response_default_application_json_vb.json"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-vb": {
+                    "actionHint": "getMany"
+                }
+            }
+        },
+        "/files/{fileId}/data/renditions": {
+            "get": {
+                "operationId": "getFileRenditions",
+                "parameters": [
+                    {
+                        "name": "fileId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "renditionType",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "x-vb": {
+                            "defaultValue": "uploaded"
+                        }
+                    }
+                ],
+                "responses": {},
+                "x-vb": {
+                    "actionHint": "getMany"
+                }
+            }
+        },
+        "/files/{fileId}/data/largeImage": {
+            "get": {
+                "operationId": "getFilePreview",
+                "parameters": [
+                    {
+                        "name": "fileId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {},
+                "x-vb": {
+                    "actionHint": "getMany"
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "PostFoldersFolderIdRequest": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PostFoldersFolderIdResponse": {
+                "type": "object",
+                "properties": {
+                    "childItemsCount": {
+                        "type": "string"
+                    },
+                    "createdBy": {
+                        "type": "object",
+                        "properties": {
+                            "displayName": {
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "string"
+                            },
+                            "loginName": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "createdTime": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "errorCode": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "modifiedBy": {
+                        "type": "object",
+                        "properties": {
+                            "displayName": {
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "string"
+                            },
+                            "loginName": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "modifiedTime": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "ownedBy": {
+                        "type": "object",
+                        "properties": {
+                            "displayName": {
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "string"
+                            },
+                            "loginName": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "parentID": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                }
+            },
+            "GetFoldersFolderIdItems": {
+                "type": "object",
+                "properties": {
+                    "childItemsCount": {
+                        "type": "string"
+                    },
+                    "count": {
+                        "type": "string"
+                    },
+                    "createdBy": {
+                        "type": "object",
+                        "properties": {
+                            "displayName": {
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "string"
+                            },
+                            "loginName": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "createdTime": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "errorCode": {
+                        "type": "string"
+                    },
+                    "hasMore": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "limit": {
+                        "type": "string"
+                    },
+                    "modifiedBy": {
+                        "type": "object",
+                        "properties": {
+                            "displayName": {
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "string"
+                            },
+                            "loginName": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "modifiedTime": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "offset": {
+                        "type": "string"
+                    },
+                    "ownedBy": {
+                        "type": "object",
+                        "properties": {
+                            "displayName": {
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "string"
+                            },
+                            "loginName": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "parentID": {
+                        "type": "string"
+                    },
+                    "size": {
+                        "type": "string"
+                    },
+                    "totalResults": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "id": {
+                                    "type": "string"
+                                },
+                                "parentID": {
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "type": "string"
+                                },
+                                "ownedBy": {
+                                    "type": "object",
+                                    "properties": {
+                                        "displayName": {
+                                            "type": "string"
+                                        },
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "loginName": {
+                                            "type": "string"
+                                        },
+                                        "type": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "createdBy": {
+                                    "type": "object",
+                                    "properties": {
+                                        "displayName": {
+                                            "type": "string"
+                                        },
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "loginName": {
+                                            "type": "string"
+                                        },
+                                        "type": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "modifiedBy": {
+                                    "type": "object",
+                                    "properties": {
+                                        "displayName": {
+                                            "type": "string"
+                                        },
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "loginName": {
+                                            "type": "string"
+                                        },
+                                        "type": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "createdTime": {
+                                    "type": "string"
+                                },
+                                "modifiedTime": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type": "string"
+                                },
+                                "size": {
+                                    "type": "string"
+                                },
+                                "childItemsCount": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "GetFilesFileId": {
+                "type": "object",
+                "properties": {
+                    "createdBy": {
+                        "type": "object",
+                        "properties": {
+                            "displayName": {
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "string"
+                            },
+                            "loginName": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "createdTime": {
+                        "type": "string"
+                    },
+                    "errorCode": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "mimeType": {
+                        "type": "string"
+                    },
+                    "modifiedBy": {
+                        "type": "object",
+                        "properties": {
+                            "displayName": {
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "string"
+                            },
+                            "loginName": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "modifiedTime": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "ownedBy": {
+                        "type": "object",
+                        "properties": {
+                            "displayName": {
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "string"
+                            },
+                            "loginName": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "parentID": {
+                        "type": "string"
+                    },
+                    "size": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "version": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
